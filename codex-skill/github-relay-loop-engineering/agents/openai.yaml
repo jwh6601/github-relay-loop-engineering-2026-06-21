@@ -1,0 +1,3 @@
+interface:
+  display_name: "GitHub Relay Loop Engineering"
+  short_description: "Run multi-agent work through GitHub boards"

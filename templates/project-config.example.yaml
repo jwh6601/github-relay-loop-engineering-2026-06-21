@@ -1,0 +1,29 @@
+workflow_config:
+  repo: owner/repo
+  boards:
+    - board_id: PHASE-001
+      issue: 1
+      objective: "One sentence phase objective."
+      phase_stop: "Stop when a product or high-risk decision is needed."
+  roles:
+    controller: "controller-thread-or-owner"
+    loop_engineer: "loop-thread-id"
+    dispatcher: "dispatcher-thread-id"
+    supervisor: "supervisor-thread-id"
+    workers:
+      general:
+        - "general-worker-thread-id"
+      review:
+        - "review-worker-thread-id"
+      provider:
+        - "provider-worker-thread-id"
+      frontend:
+        - "frontend-worker-thread-id"
+  hard_holds:
+    - "No provider/live eval unless explicitly released."
+    - "No production/default-path changes unless explicitly released."
+    - "No destructive operations unless explicitly released."
+    - "No route or issue close unless explicitly released."
+  evidence_policy:
+    public: "aggregate-only"
+    private: "project-approved local artifact or private handoff"
