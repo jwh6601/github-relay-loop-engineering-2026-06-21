@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">GitHub Relay Loop Engineering case flow</title>
+  <desc id="desc">A visual case showing Controller, GitHub board, Loop Engineer, Dispatcher, Workers, Reviewer, Supervisor, and phase gate.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f5ef; }
+      .panel { fill: #ffffff; stroke: #202124; stroke-width: 2; }
+      .soft { fill: #eef3f7; stroke: #202124; stroke-width: 2; }
+      .accent { fill: #ffd166; stroke: #202124; stroke-width: 2; }
+      .risk { fill: #f4a6a6; stroke: #202124; stroke-width: 2; }
+      .ok { fill: #b8e6c8; stroke: #202124; stroke-width: 2; }
+      .text { font-family: "Segoe UI", "Microsoft YaHei", Arial, sans-serif; fill: #202124; }
+      .title { font-size: 34px; font-weight: 700; }
+      .subtitle { font-size: 18px; }
+      .label { font-size: 22px; font-weight: 700; }
+      .small { font-size: 16px; }
+      .tiny { font-size: 14px; }
+      .arrow { stroke: #202124; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .dash { stroke: #62666d; stroke-width: 2.5; fill: none; stroke-dasharray: 8 7; marker-end: url(#arrowheadSoft); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#202124"/>
+    </marker>
+    <marker id="arrowheadSoft" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#62666d"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1200" height="720"/>
+
+  <text class="text title" x="60" y="68">GitHub Relay Loop Engineering</text>
+  <text class="text subtitle" x="60" y="100">Use a GitHub issue board as the durable relay layer between human decisions and parallel AI workers.</text>
+
+  <rect class="panel" x="60" y="150" width="220" height="110" rx="10"/>
+  <text class="text label" x="88" y="193">Controller</text>
+  <text class="text small" x="88" y="224">决策、授权、收口</text>
+
+  <rect class="accent" x="410" y="135" width="380" height="160" rx="12"/>
+  <text class="text label" x="455" y="178">GitHub Issue Board</text>
+  <text class="text small" x="455" y="211">truth source / task ledger</text>
+  <text class="text small" x="455" y="239">quest_release · lock · claim · result · gate</text>
+
+  <rect class="panel" x="920" y="150" width="220" height="110" rx="10"/>
+  <text class="text label" x="950" y="193">Loop Engineer</text>
+  <text class="text small" x="950" y="224">拆任务、读结果、写阶段门</text>
+
+  <rect class="soft" x="410" y="370" width="180" height="100" rx="10"/>
+  <text class="text label" x="445" y="410">Dispatcher</text>
+  <text class="text small" x="445" y="439">只路由，不判断</text>
+
+  <rect class="panel" x="660" y="345" width="170" height="80" rx="10"/>
+  <text class="text label" x="705" y="380">Worker</text>
+  <text class="text tiny" x="690" y="405">one quest only</text>
+
+  <rect class="panel" x="660" y="450" width="170" height="80" rx="10"/>
+  <text class="text label" x="700" y="485">Reviewer</text>
+  <text class="text tiny" x="690" y="510">focused review</text>
+
+  <rect class="ok" x="60" y="430" width="220" height="110" rx="10"/>
+  <text class="text label" x="94" y="474">Supervisor</text>
+  <text class="text small" x="94" y="505">审计卡住、越界、污染</text>
+
+  <rect class="risk" x="920" y="430" width="220" height="110" rx="10"/>
+  <text class="text label" x="966" y="474">Phase Gate</text>
+  <text class="text small" x="966" y="505">停工，回到负责人判断</text>
+
+  <path class="arrow" d="M280 205 H410"/>
+  <path class="arrow" d="M790 205 H920"/>
+  <path class="arrow" d="M920 230 C830 310 720 310 590 390"/>
+  <path class="arrow" d="M590 420 H660"/>
+  <path class="arrow" d="M745 345 C735 300 655 300 600 295"/>
+  <path class="arrow" d="M745 450 C735 325 650 320 600 295"/>
+  <path class="arrow" d="M790 260 C900 330 960 370 1020 430"/>
+  <path class="arrow" d="M920 485 C690 630 330 615 170 540"/>
+  <path class="dash" d="M280 485 C360 355 385 300 410 250"/>
+  <path class="arrow" d="M1020 430 C960 325 840 285 790 250"/>
+  <path class="arrow" d="M920 485 C700 675 250 650 170 260"/>
+
+  <rect class="panel" x="60" y="600" width="1080" height="70" rx="10"/>
+  <text class="text small" x="90" y="630">Default rule: low-risk work can move fast; high-risk work stops at the phase gate.</text>
+  <text class="text small" x="90" y="657">Public board comments stay aggregate-only: no secrets, no raw provider payloads, no private project material, no local paths.</text>
+</svg>

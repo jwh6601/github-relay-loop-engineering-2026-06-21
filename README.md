@@ -2,7 +2,11 @@
 
 A lightweight, board-driven workflow for coordinating multiple AI coding agents through GitHub issues.
 
+中文说明: [docs/zh-CN.md](docs/zh-CN.md)
+
 This repository packages a practical method, templates, and a Codex skill for running multi-agent engineering work without turning the main planning conversation into a giant log stream.
+
+![Board relay case study](assets/board-relay-case.svg)
 
 ## What It Solves
 
@@ -49,6 +53,8 @@ templates/
   supervisor-audit.md
 codex-skill/
   github-relay-loop-engineering/
+assets/
+  board-relay-case.svg
 ```
 
 ## Quick Start
