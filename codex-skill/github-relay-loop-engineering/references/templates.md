@@ -4,6 +4,7 @@ Use the repository-level `templates/` directory as the source of truth for reusa
 
 - `templates/project-config.example.yaml`
 - `templates/board-state.md`
+- `templates/local-board-snapshot.md`
 - `templates/quest-release.md`
 - `templates/worker-point-call.md`
 - `templates/quest-result.md`

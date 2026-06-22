@@ -1,6 +1,6 @@
 ---
 name: github-relay-loop-engineering
-description: Use when setting up, auditing, or running a multi-Codex or multi-agent engineering workflow coordinated through GitHub issue boards, especially with Controller, Loop Engineer, Dispatcher, Worker, Reviewer, and Supervisor roles. Trigger this for board-driven task queues, remote locks, phase gates, aggregate-only comments, dispatcher routing, worker prompt packs, workflow optimization, or converting a project coordination pattern into a reusable operating protocol.
+description: Use when setting up, auditing, optimizing, or running a multi-Codex or multi-agent engineering workflow coordinated through GitHub issue boards and optional local board snapshots, especially with Controller, Loop Engineer, Dispatcher, Worker, Reviewer, and Supervisor roles. Trigger this for board-driven task queues, remote locks, phase gates, aggregate-only comments, dispatcher routing, worker prompt packs, token-efficient hybrid relay workflows, workflow optimization, or converting a project coordination pattern into a reusable operating protocol.
 ---
 
 # GitHub Relay Loop Engineering
@@ -60,6 +60,37 @@ Apply all ten optimizations by default:
 9. Clean up superseded work. Mark superseded PRs/tasks clearly; do not leave duplicate branches or ambiguous candidates alive.
 10. Separate reusable workflow from project config. The skill defines process; the project board defines current facts.
 
+## Token-Efficient Hybrid Relay
+
+For large or long-running boards, do not make every worker reread the full issue history. Use a hybrid relay:
+
+- GitHub Issues, PRs, remote locks, and GitHub CI remain the authoritative truth source.
+- Local status docs or board snapshots are speed caches only. If local and GitHub disagree, GitHub wins.
+- Keep a short local board snapshot with phase, active quests, locks, open PRs, merged PRs, blockers, held gates, next decision, and worker read targets.
+- Workers may read the local snapshot for orientation, then verify only the exact release/result comments, remote lock, target PR, and CI needed for their task.
+- Loop Engineer updates or requests snapshot updates after major phase gates, PR merges, CI status changes, or controller decisions.
+- Full board-history reads are reserved for audits, snapshot repair, contradictions, and phase summaries.
+
+Use this default read order for mature boards:
+
+1. Stable protocol and current status.
+2. Local board snapshot, if present and fresh.
+3. Assigned release/result/comment ids.
+4. Exact remote lock ref.
+5. Target PR files, review state, and CI.
+6. Full GitHub issue history only when the snapshot is stale, missing, contradictory, or the task is an audit.
+
+Expected token impact: on comment-heavy boards, this usually reduces per-worker coordination context by roughly 80-90% while preserving GitHub auditability.
+
+## CI And Build Evidence
+
+Treat local verification as preflight, not final proof:
+
+- Local tests/builds are useful for early failure detection.
+- GitHub PR CI is required before review or green-lane merge.
+- Post-merge GitHub main CI is required before a clean phase gate.
+- Desktop/app packaging should usually happen at phase gates, not after every small worker PR, unless the Controller asks for an immediate build.
+
 ## Templates
 
-Use the repository `templates/` directory for board comments, worker point-calls, phase summaries, controller decisions, and supervisor audits.
+Use the repository `templates/` directory for board comments, local board snapshots, worker point-calls, phase summaries, controller decisions, and supervisor audits.

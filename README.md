@@ -21,6 +21,8 @@ Multi-agent coding often fails for boring reasons:
 
 GitHub Relay Loop Engineering uses GitHub issues as the durable coordination layer. Chats can come and go, but the board remains the truth source.
 
+For large boards, use a hybrid relay: keep a short local board snapshot for speed, but keep GitHub issues, pull requests, remote locks, and GitHub CI as the final truth source. The local snapshot helps workers avoid rereading a huge issue history; GitHub still decides claims, reviews, merges, phase gates, and CI evidence.
+
 ## Core Idea
 
 Use separate roles:
@@ -44,6 +46,7 @@ docs/
 templates/
   project-config.example.yaml
   board-state.md
+  local-board-snapshot.md
   quest-release.md
   worker-point-call.md
   quest-result.md
@@ -61,11 +64,17 @@ assets/
 
 1. Create a GitHub issue for the phase board.
 2. Fill `templates/project-config.example.yaml` with repo, board, role, and boundary data.
-3. Ask the Loop Engineer to post quest releases on the board.
-4. Let Dispatcher route only released, dependency-satisfied, unlocked quests.
-5. Workers post aggregate-only quest results.
-6. Loop Engineer writes a phase summary when the phase reaches a decision point.
-7. Controller decides whether to continue, narrow, pause, merge, park, or close.
+3. For a large board, create a local snapshot from `templates/local-board-snapshot.md`.
+4. Ask the Loop Engineer to post quest releases on the board.
+5. Let Dispatcher route only released, dependency-satisfied, unlocked quests.
+6. Workers read the snapshot first, then verify the exact GitHub comment, lock, PR, and CI needed for the task.
+7. Workers post aggregate-only quest results.
+8. Loop Engineer writes a phase summary when the phase reaches a decision point.
+9. Controller decides whether to continue, narrow, pause, merge, park, or close.
+
+## CI Rule
+
+Local tests and builds are preflight. GitHub PR CI is required before review or green-lane merge, and post-merge GitHub main CI is required before a clean phase gate.
 
 ## Non-Goals
 
